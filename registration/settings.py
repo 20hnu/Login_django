@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -102,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -114,17 +116,30 @@ USE_I18N = True
 USE_TZ = True
 
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+MEDIA_ROOT = (
+BASE_DIR
+)
+
+# AUTH_USER_MODEL = 'app1.Profile'
+MEDIA_URL = '/img/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace 'smtp.example.com' with your SMTP server hostname
+EMAIL_PORT = 587  # The port used by your SMTP server (587 is the default for SMTP with TLS)
+EMAIL_USE_TLS = True  # Set to True if your SMTP server requires TLS (Transport Layer Security)
+EMAIL_HOST_USER = 'kanxobabu5@gmail.com'  # Your email address used for authentication with the SMTP server
+EMAIL_HOST_PASSWORD = 'xzhl wvmw dcjv pnod'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-COMPRESS_ROOT = BASE_DIR / 'static'
- 
-COMPRESS_ENABLED = True
- 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)

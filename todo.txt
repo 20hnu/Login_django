@@ -1,0 +1,5 @@
+1. password constraints ( done)
+2. forget password
+3. remeber me if possible
+(due tomorrow)
+

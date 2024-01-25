@@ -1,49 +1,92 @@
-{% load compress %}
-{% load static %}
- 
 <!DOCTYPE html>
 <html lang="en">
- 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content=
-        "width=device-width, initial-scale=1.0">
-    <title>Django + Tailwind CSS</title>
- 
-    {% compress css %}
-    <link rel="stylesheet"
-        href="{% static 'src/output.css' %}">
-    {% endcompress %}
- 
-</head>
- 
-<body class="bg-gray-200 flex items-center justify-center h-screen">
-    <div class=" p-8 rounded shadow-md w-96">
-        <h2 class="text-2xl font-semibold mb-6">Sign Up</h2>
-        <form method="post" >
-            {% csrf_token %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
 
-            <div class="mb-4">
-                <label for="username" class="block text-gray-600 text-sm font-medium">Username:</label>
-                <input type="text" name="username" id="username" class="mt-1 p-2 w-full border rounded-md" required>
+</head>
+<body class="container">
+    <section class="vh-100 mt-3">
+        <div class="container-fluid h-custom">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+           
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              {% for message in messages %}
+              <div class="container-fluid p-0">
+              <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                {{ message }}
+              </div>
             </div>
-            <div class="mb-4">
-                <label for="username" class="block text-gray-600 text-sm font-medium">Gmail:</label>
-                <input type="email" name="username" id="email" class="mt-1 p-2 w-full border rounded-md" required>
+             {% endfor %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    Username:
+                  <input type="text" id="form3Example2" name ="username" class="border form-control form-control-lg"
+                    placeholder="Enter your full name" required/>
+                  <!-- <label class="form-label" for="form3Example3">Email address</label> -->
+                </div>
+                <div class="form-outline mb-4">
+                    Email:
+                  <input type="email" id="form3Example3" name="email" class="border form-control form-control-lg"
+                    placeholder="Enter a valid email address" required/>
+                  <!-- <label class="form-label" for="form3Example3">Email address</label> -->
+                </div>
+      
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                    Password:
+                  <input type="password" id="form3Example4" name="password" class="border form-control form-control-lg"
+                    placeholder="Enter password" required/>
+                  <!-- <label class="form-label" for="form3Example4">Password</label> -->
+                </div>
+                <div class="form-outline mb-3">
+                    Confirm Password:
+                  <input type="password" id="form3Example5" name="confirm_password" class="border form-control form-control-lg"
+                    placeholder="Confirm your password" required/>
+                  <!-- <label class="form-label" for="form3Example4">Password</label> -->
+                </div>
+      
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem">Sign up</button>
+                  <p class="small fw-bold mt-2 pt-1 mb-0">Already had an account? <a href="/login"
+                      class="link-danger">Login</a></p>
+                </div>
+              </form>
+              <div>
+                Password must contain:
+                <ul>
+                  <li>At least 8 digits.</li>
+                  <li>At least one special character.</li>
+                  <li>At least one uppercase letter</li>
+                  <li>At least one numeric value.</li>
+                </ul>
+              </div>
             </div>
-            <div class="mb-4">
-                <label for="password" class="block text-gray-600 text-sm font-medium">Password:</label>
-                <input type="password" name="password" id="password" class="mt-1 p-2 w-full border rounded-md" required>
-            </div>
-            <div class="mb-4">
-                <label for="password" class="block text-gray-600 text-sm font-medium">Confirm Password:</label>
-                <input type="password" name="password" id="re-password" class="mt-1 p-2 w-full border rounded-md" required>
-            </div>
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded-md">Sign Up</button>
-        </form>
-        <a href="" class="p-2 underline text-sm hover:text-cyan-500">Already have an account?</a>
-    </div>
+          </div>
+        </div>
+       
+      </section>
+  <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+></script>
 </body>
- 
 </html>

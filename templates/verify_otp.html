@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    input.otp::-webkit-outer-spin-button,
+    input.otp::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    input[type=number].otp {
+        -moz-appearance: textfield;
+    }
+  </style>
+    <title>Verify Otp</title>
+</head>
+<body>
+    <div class="container mt-5 text-center">
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            {% for message in messages %}
+            <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+              {{ message }}
+            </div>
+          </div>
+           {% endfor %}
+        <h1>Enter the otp you received from your email</h1>
+        <form method="POST">
+            {% csrf_token %}
+        <input type="number" name="first" class="otp rounded" style="width:3rem;" oninput="this.value = this.value.slice(0, 1)">
+        <input type="number" name="second" class="otp rounded" style="width:3rem" oninput="this.value = this.value.slice(0, 1)">
+        <input type="number" name="third" class="otp rounded" style="width:3rem" oninput="this.value = this.value.slice(0, 1)">
+        <input type="number" name="fourth" class="otp rounded" style="width:3rem" oninput="this.value = this.value.slice(0, 1)">
+            <br>
+        <button type="submit" class="btn btn-primary btn-lg"
+        style="padding-left: 2.5rem; padding-right: 2.5rem; margin-top:1rem">Verify Otp</button>
+    </form>
+    </div>
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+  ></script>
+</body>
+</html>
