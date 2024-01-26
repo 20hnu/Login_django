@@ -69,9 +69,9 @@ def request_password_reset(request):
             otp = ''.join(random.choices('0123456789', k=4))
             print(otp)
 
-        #     # Save OTP to user's profile (you may need to create a model for this)
-        #     user.profile.reset_otp = otp
-        #     user.profile.save()
+            # Save OTP to user's profile (you may need to create a model for this)
+            user.profile.reset_otp = otp
+            user.profile.save()
 
             # Send OTP to user's email
             
@@ -96,11 +96,18 @@ def verify_otp(request):
         third = request.POST.get('third')
         fourth = request.POST.get('fourth')
         
-        to_verify = str(first) + str(second)+ str(third) + str(fourth)
-        print(to_verify)
-        
-        
-        
+        otp_entered = str(first) + str(second)+ str(third) + str(fourth)
+        user = request.user
+        if len(otp_entered) == 4:
+            print(otp_entered)
+            if user.profile.reset_otp == otp_entered:
+            # OTP verification successful
+                return redirect('reset_password')
+            else:
+                messages.error(request, 'Invalid OTP. Please try again.')
+                return render(request, 'verify_otp.html') 
+        else:
+            return render(request, 'verify_otp.html')     
     return render(request, 'verify_otp.html')
 
 def reset_password(request):
@@ -110,10 +117,14 @@ def reset_password(request):
         if check_password(new_password):
             if new_password == conf_pass_wd:
                 user = request.user  # Assuming user is logged in
-                user.set_password(new_password)
-                user.save()
-                messages.success(request,"Your password has been reset successfully.")
-                return redirect('/login')
+                if user.is_authenticated():
+                    user.set_password(new_password)
+                    user.save()
+                    messages.success(request,"Your password has been reset successfully.")
+                    return redirect('/login')
+                else:
+                    messages.error(request,"Your password does not match")
+                    return redirect('/resetpassword')    
             else:
                 messages.error(request,"Your password does not match")
                 return redirect('/resetpassword')
